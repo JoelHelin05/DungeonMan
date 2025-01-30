@@ -18,6 +18,7 @@ public class TileManager {
 	public Tile[] wallTiles;
 	public int[] randArray;
 	public int[][] mapTileNum;
+	public int[][] completeTileNum;
 	
 	public TileManager(GamePanel gp) {
 		this.gp = gp;
@@ -25,6 +26,7 @@ public class TileManager {
 		floorTiles = new Tile[10];
 		wallTiles = new Tile[10];
 		mapTileNum = new int [gp.worldTileSizeCol][gp.worldTileSizeRow];
+		completeTileNum = new int [gp.worldTileSizeCol][gp.worldTileSizeRow];
 		randArray = new int[(gp.worldTileSizeCol + 1)*(gp.worldTileSizeRow + 1)];
 		
 		getTileImage();
@@ -96,6 +98,10 @@ public class TileManager {
 					int num = Integer.parseInt(numbers[col]);
 					
 					mapTileNum[col][row] = num;
+					completeTileNum[col][row] = num;
+					if(num == 1) {
+						completeTileNum[col][row + 1] = 1;
+					}
 					col++;
 				}
 				if(col == gp.worldTileSizeCol) {
@@ -131,48 +137,16 @@ public class TileManager {
 					if(mapTileNum[worldCol][worldRow + 1] == 1) {
 						//Draw wall
 						g2.drawImage(wallTiles[0].image, x, y, gp.tileSize, gp.tileSize, null);
-						if(mapTileNum[worldCol - 1][worldRow] == 1) {
-
-							g2.drawImage(wallTiles[2].image, x, y - gp.tileSize, gp.tileSize, gp.tileSize, null);
-						}
-						else if(mapTileNum[worldCol + 1][worldRow] == 1) {
-
-							g2.drawImage(wallTiles[3].image, x, y - gp.tileSize, gp.tileSize, gp.tileSize, null);
-						}
-						else {
-
-							g2.drawImage(wallTiles[1].image, x, y - gp.tileSize, gp.tileSize, gp.tileSize, null);
-						}
-						
-						if(mapTileNum[worldCol + 1][worldRow + 1] == 0) {
-
-							g2.drawImage(wallTiles[4].image, x + gp.tileSize, y - gp.tileSize, gp.tileSize, gp.tileSize, null);
-						}
-						if(mapTileNum[worldCol - 1][worldRow + 1] == 0) {
-
-							g2.drawImage(wallTiles[5].image, x - gp.tileSize, y - gp.tileSize, gp.tileSize, gp.tileSize, null);
-						}
 						
 					}
 					
-				} catch(Exception e){
+				} catch(Exception e) {
 					
 					System.out.println("erm");
 				}
 				break;
 			case 1 :
 				g2.drawImage(floorTiles[randArray[(worldCol + 1) * (worldRow + 1)]].image, x, y, gp.tileSize, gp.tileSize, null);
-				if(mapTileNum[worldCol][worldRow + 1] == 0) {
-					
-					if(mapTileNum[worldCol +1][worldRow + 1] == 1) {
-
-						g2.drawImage(wallTiles[6].image, x, y, gp.tileSize, gp.tileSize, null);
-					}
-					else {
-
-						g2.drawImage(wallTiles[8].image, x, y, gp.tileSize, gp.tileSize, null);
-					}
-				}
 				break;
 			}
 			
