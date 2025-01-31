@@ -193,7 +193,7 @@ public class TileManager {
 				} else if (rTileNum == 0 && dTileNum == 0 && drTileNum > 0) {
 
 					completeTileNum[worldCol][worldRow] = 5;
-				}else if(rTileNum > 0) {
+				} else if(rTileNum > 0) {
 
 					completeTileNum[worldCol][worldRow] = 9;
 				} else if(lTileNum > 0) {
@@ -205,12 +205,15 @@ public class TileManager {
 				if(dTileNum == 0 && dlTileNum > 0) {
 
 					completeTileNum[worldCol][worldRow] = 7;
-				}else if(dTileNum == 0 && drTileNum > 0) {
+				} else if(dTileNum == 0 && drTileNum > 0) {
 
 					completeTileNum[worldCol][worldRow] = 6;
-				}else if(dTileNum == 0) {
+				} else if(dTileNum == 0) {
 
 					completeTileNum[worldCol][worldRow] = 8;
+				} else if(dTileNum == 2) {
+					
+					completeTileNum[worldCol][worldRow] = 1;
 				}
 			}
 			worldCol++;

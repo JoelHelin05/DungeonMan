@@ -6,6 +6,10 @@ import java.awt.image.BufferedImage;
 public class Entity {
 
 	public int speed;
+	public float x;
+	public float y;
+	public int screenX;
+	public int screenY;
 	public float xVelocity;
 	public float yVelocity;
 
@@ -16,5 +20,6 @@ public class Entity {
 	public int spriteNum = 1;
 	
 	public Rectangle collisionArea;
-	public boolean collisionOn = false;
+	public boolean collisionY = false;
+	public boolean collisionX = false;
 }

@@ -16,10 +16,6 @@ public class Player extends Entity{
 	GamePanel gp;
 	KeyHandler keyH;
 	
-	public float x;
-	public float y;
-	public int worldX;
-	public int worldY;
 	
 	boolean isMoving;
 	int spriteNum;
@@ -33,10 +29,10 @@ public class Player extends Entity{
 		
 		x = gp.screenWidth/2 - (gp.tileSize/2);
 		y = gp.screenHeight/2 - (gp.tileSize/2);
-		worldX = (int)x;
-		worldY = (int)y;
+		screenX = (int)x;
+		screenY = (int)y;
 		
-		collisionArea = new Rectangle(15, 24, 18, 18);
+		collisionArea = new Rectangle(6, 30, 36, 15);
 		
 		setDefaultValues();
 		getPlayerImage();
@@ -88,17 +84,27 @@ public class Player extends Entity{
 				isFlipped = false;
 				xVelocity ++;
 			}
-
+			
+			collisionY = false;
+			collisionX = false;
+			gp.cChecker.checkTile(this);
+			
 			float magnitude = (xVelocity * xVelocity) + (yVelocity*yVelocity);
 			magnitude = (float)Math.sqrt(magnitude);
 
 			if(Math.abs(xVelocity) + Math.abs(yVelocity) != 0) {
 
-				y += (yVelocity/magnitude) * speed;
-				x += (xVelocity/magnitude) * speed;
+				if(!collisionY) {
+
+					y += (yVelocity/magnitude) * speed;
+				}
+				if(!collisionX) {
+
+					x += (xVelocity/magnitude) * speed;
+				}
 			}
-			worldX = (int)x;
-			worldY = (int)y;
+			screenX = (int)x;
+			screenY = (int)y;
 			
 			
 			//Resets sprite counter if you were still
@@ -133,6 +139,6 @@ public class Player extends Entity{
 			image = idleImage[spriteNum];
 		}
 		
-		g2.drawImage(image, isFlipped ? worldX + gp.tileSize: worldX, worldY, isFlipped? -gp.tileSize : gp.tileSize, gp.tileSize, null);
+		g2.drawImage(image, isFlipped ? screenX + gp.tileSize: screenX, screenY, isFlipped? -gp.tileSize : gp.tileSize, gp.tileSize, null);
 	}
 }
